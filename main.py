@@ -29,7 +29,7 @@ class EvernoteHandler(webapp2.RequestHandler):
 
     def get(self):
         sender_email = 'takatoshi.ono@gmail.com'
-        subject = '%s @日記' % (date.today().strftime('%Y/%m/%d'))
+        subject = '%s @日記' % (date.today().strftime('%Y年%m月%d日'))
         body = ''
 
         mail.send_mail(sender_email, self.evernote_email(), subject, body)
