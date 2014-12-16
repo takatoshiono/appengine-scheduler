@@ -32,9 +32,7 @@ class EvernoteHandler(webapp2.RequestHandler):
         subject = '%s @日記' % (
                     date.today().strftime('%Y/%m/%d')
                 )
-        body = '''
-Body のテストです
-'''
+        body = ''
 
         mail.send_mail(sender_email, email, subject, body)
         self.response.write(subject)
