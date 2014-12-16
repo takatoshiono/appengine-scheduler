@@ -18,6 +18,7 @@
 import webapp2
 from google.appengine.api import mail
 
+import base64
 from datetime import date
 
 class MainHandler(webapp2.RequestHandler):
@@ -25,17 +26,17 @@ class MainHandler(webapp2.RequestHandler):
         self.response.write('Hello world!')
 
 class EvernoteHandler(webapp2.RequestHandler):
-    def get(self):
-        email = self.request.get('email')
 
+    def get(self):
         sender_email = 'takatoshi.ono@gmail.com'
-        subject = '%s @日記' % (
-                    date.today().strftime('%Y/%m/%d')
-                )
+        subject = '%s @日記' % (date.today().strftime('%Y/%m/%d'))
         body = ''
 
-        mail.send_mail(sender_email, email, subject, body)
-        self.response.write(subject)
+        mail.send_mail(sender_email, self.evernote_email(), subject, body)
+        self.response.write('To: %s, Subject: %s' % (self.evernote_email(), subject))
+
+    def evernote_email(self):
+        return base64.b64decode('dGtfb25vLjgzZjY4QG0uZXZlcm5vdGUuY29t')
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
