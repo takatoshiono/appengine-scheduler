@@ -18,6 +18,8 @@
 import webapp2
 from google.appengine.api import mail
 
+from datetime import date
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.write('Hello world!')
@@ -27,13 +29,15 @@ class EvernoteHandler(webapp2.RequestHandler):
         email = self.request.get('email')
 
         sender_email = 'takatoshi.ono@gmail.com'
-        subject = '件名のテスト'
+        subject = '%s @日記' % (
+                    date.today().strftime('%Y/%m/%d')
+                )
         body = '''
 Body のテストです
 '''
 
         mail.send_mail(sender_email, email, subject, body)
-        self.response.write('Hello %s!' % email)
+        self.response.write(subject)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
