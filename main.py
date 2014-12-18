@@ -18,22 +18,34 @@
 import webapp2
 from google.appengine.api import mail
 
+import base64
+from datetime import datetime, timedelta, tzinfo
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         self.response.write('Hello world!')
 
 class EvernoteHandler(webapp2.RequestHandler):
+
     def get(self):
-        email = self.request.get('email')
-
         sender_email = 'takatoshi.ono@gmail.com'
-        subject = '件名のテスト'
-        body = '''
-Body のテストです
-'''
+        now = datetime.now(tz=AsiaTokyo())
+        subject = '%s @日記' % (now.strftime('%Y年%m月%d日'))
+        body = ''
 
-        mail.send_mail(sender_email, email, subject, body)
-        self.response.write('Hello %s!' % email)
+        mail.send_mail(sender_email, self.evernote_email(), subject, body)
+        self.response.write('To: %s, Subject: %s, at: %s' % (self.evernote_email(), subject, now.strftime('%Y/%m/%d %H:%M:%S')))
+
+    def evernote_email(self):
+        return base64.b64decode('dGtfb25vLjgzZjY4QG0uZXZlcm5vdGUuY29t')
+
+class AsiaTokyo(tzinfo):
+    def utcoffset(self, dt):
+        return timedelta(hours=9)
+    def dst(self, dt):
+        return timedelta(0)
+    def tzname(self, dt):
+        return 'Asia/Tokyo'
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
