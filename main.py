@@ -29,7 +29,7 @@ class EvernoteHandler(webapp2.RequestHandler):
 
     def get(self):
         sender_email = 'takatoshi.ono@gmail.com'
-        now = datetime.now(tz=AsiaTokyo())
+        now = datetime.now(tz=JST())
         subject = '%s @日記' % (now.strftime('%Y年%m月%d日'))
         body = ''
 
@@ -39,13 +39,13 @@ class EvernoteHandler(webapp2.RequestHandler):
     def evernote_email(self):
         return base64.b64decode('dGtfb25vLjgzZjY4QG0uZXZlcm5vdGUuY29t')
 
-class AsiaTokyo(tzinfo):
+class JST(tzinfo):
     def utcoffset(self, dt):
         return timedelta(hours=9)
     def dst(self, dt):
         return timedelta(0)
     def tzname(self, dt):
-        return 'Asia/Tokyo'
+        return 'JST'
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
