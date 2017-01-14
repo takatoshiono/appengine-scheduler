@@ -1,5 +1,5 @@
 cron:
-  - description: send mail to evernote
-    url: /evernote
-    schedule: every day 07:00
-    timezone: Asia/Tokyo
+#  - description: send mail to evernote
+#    url: /evernote
+#    schedule: every day 07:00
+#    timezone: Asia/Tokyo
