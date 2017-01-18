@@ -5,7 +5,7 @@
 ### デプロイ
 
 ```
-appcfg.py update . --oauth2 -A airy-highlander-792
+gcloud app deploy --project airy-highlander-792
 ```
 
 airy-highlander-792 というのは app engine のプロジェクト ID です。

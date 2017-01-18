@@ -1,2 +1,3 @@
 #!/bin/sh
-appcfg.py update . --oauth2 -A airy-highlander-792
+GCLOUD="$HOME/Downloads/google-cloud-sdk/bin/gcloud"
+$GCLOUD app deploy --project airy-highlander-792
