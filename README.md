@@ -5,14 +5,15 @@
 ### デプロイ
 
 ```
-gcloud app deploy --project airy-highlander-792
+gcloud app deploy [DEPLOYABLES] --project airy-highlander-792
 ```
 
+DEPLOYABLES には yaml ファイルを指定します。省略した場合は app.yaml になります。複数指定可能です。
 airy-highlander-792 というのは app engine のプロジェクト ID です。
 下記シェルスクリプトで上記コマンドを実行します。
 
 ```
-$ ./deploy.sh
+$ ./deploy.sh [DEPLOYABLES]
 ```
 
 ### 登録済みの cron
